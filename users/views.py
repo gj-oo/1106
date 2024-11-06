@@ -26,8 +26,7 @@ class SigninView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MeView(APIView):
-    # 禁用默认认证机制
-    authentication_classes = []  # 这样会绕过默认的 JWT 认证
+    authentication_classes = [] 
     
     def get(self, request):
         # 从 Authorization header 中提取 token
@@ -39,8 +38,8 @@ class MeView(APIView):
         # 获取 token 部分，去掉 "Bearer " 前缀
         token = auth_header.split(' ')[1]
 
-        # 获取数据库中的用户信息
-        user = User.objects.filter(id=1).first()
+        # 获取用户信息
+        user = User.objects.first()
 
         # 返回id和email
         return Response({'id': user.id, 'email': user.email}, status=200)
